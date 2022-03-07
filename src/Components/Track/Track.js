@@ -2,6 +2,14 @@ import React from "react";
 import './Track.css'
 
 export class Track extends React.Component {
+  renderAction(e) {
+    if (isRemoval) {
+      document.getElementsByClassName('Track-action')[0].innerHTML = "-";
+    } else {
+      document.getElementsByClassName('Track-action')[0].innerHTML = "+";
+    }
+  }
+
   render() {
     return (
       <div className="Track">
