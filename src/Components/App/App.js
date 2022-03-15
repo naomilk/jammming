@@ -11,7 +11,8 @@ export class App extends React.Component {
     this.state = {
       playlistName: 'New Playlist',
       playlistTracks: [],
-      searchResults: []
+      searchResults: [],
+      previewUrl: ''
     }
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
