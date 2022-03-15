@@ -3,7 +3,7 @@ import './App.css';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { SearchResults } from '../SearchResults/SearchResults';
 import { Playlist } from '../Playlist/Playlist';
-import Spotify from '../../util/Spotify';
+import Spotify, { accessToken } from '../../util/Spotify';
 
 export class App extends React.Component {
   constructor(props) {
@@ -55,6 +55,10 @@ export class App extends React.Component {
     Spotify.search(term).then(searchResults => {
       this.setState({ searchResults: searchResults });
     });
+  }
+
+  componentDidMount() {
+    Spotify.getAccessToken();
   }
 
   render() {

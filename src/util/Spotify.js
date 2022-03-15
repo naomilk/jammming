@@ -1,6 +1,6 @@
-let accessToken;
+export let accessToken;
 const clientId = 'b3b2684e171c4991a3b6343d62361850';
-const redirectUri = 'http://apathetic-snow.surge.sh';
+const redirectUri = 'http://localhost:3000';
 
 
 const Spotify = {
@@ -15,6 +15,7 @@ const Spotify = {
         if(accessTokenMatch && expiresInMatch) {
             accessToken = accessTokenMatch[1];
             const expiresIn = Number(expiresInMatch[1]);
+            //this clears the params allowing us to grab a new access token when it expires
             window.setTimeout(() => accessToken = '', expiresIn * 1000);
             window.history.pushState('Access Token', null, '/');
             return accessToken;
@@ -25,12 +26,14 @@ const Spotify = {
     },
 
     search(term) {
-        const accessToken = Spotify.getAccessToken();
+        if (accessToken === undefined) {
+            this.getAccessToken();
+        }
         return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
-        }).then((response) => {
+        }).then(response => {
             return response.json();
         }).then(jsonResponse => {
             if(!jsonResponse.tracks) {
