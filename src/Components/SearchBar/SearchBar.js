@@ -1,5 +1,5 @@
 import React from "react";
-import Spotify, { accessToken } from "../../util/Spotify";
+import { accessToken } from "../../util/Spotify";
 import './SearchBar.css';
 
 export class SearchBar extends React.Component {

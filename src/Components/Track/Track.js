@@ -8,6 +8,7 @@ export class Track extends React.Component {
     this.renderAction = this.renderAction.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.playAudio = this.playAudio.bind(this);
+    this.renderPlayButton = this.renderPlayButton.bind(this)
   }
 
   renderAction() {
@@ -28,7 +29,14 @@ export class Track extends React.Component {
 
   playAudio() {
     const audio = document.getElementById("audio");
-    audio.play();
+    if (audio.src !== this.props.track.previewUrl) {
+      audio.src = this.props.track.previewUrl;
+      return audio.play();
+    }
+
+    if (audio.src === this.props.track.previewUrl) {
+      return audio.paused ? audio.play() : audio.pause();
+    }
   }
 
   renderPlayButton() {
@@ -36,12 +44,18 @@ export class Track extends React.Component {
       return;
     } else {
       return (
-        <button type="submit" className="play-button" onClick={this.playAudio} disabled={!this.props.track.previewUrl}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          <audio id="audio" src={this.props.track.previewUrl}></audio>
+        <button type="submit" className="play-button" onClick={this.playAudio} disabled={!this.props.track.previewUrl} style={{ color: 'white' }}>
+            { this.props.playing 
+            ? 
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg> 
+            : 
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg> 
+            }
         </button>
       )
     }

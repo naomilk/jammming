@@ -1,6 +1,6 @@
 export let accessToken;
-const clientId = 'b3b2684e171c4991a3b6343d62361850';
-const redirectUri = 'http://localhost:3000';
+const clientId = process.env.REACT_APP_CLIENT_ID;
+const redirectUri = process.env.REACT_APP_REDIRECT_URI || 'http://localhost:3000';
 
 
 const Spotify = {

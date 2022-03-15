@@ -3,7 +3,7 @@ import './App.css';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { SearchResults } from '../SearchResults/SearchResults';
 import { Playlist } from '../Playlist/Playlist';
-import Spotify, { accessToken } from '../../util/Spotify';
+import Spotify from '../../util/Spotify';
 
 export class App extends React.Component {
   constructor(props) {
